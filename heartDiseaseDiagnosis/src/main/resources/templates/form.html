@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heart Disease Prediction</title>
+</head>
+<body>
+    <h2>Enter Patient Data</h2>
+    <form method="post" action="/predict">
+        Age: <input type="number" name="age" step="1" required><br><br>
+        Sex:
+        <select name="sex">
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+        </select><br><br>
+        Chest Pain Type:
+        <select name="cp">
+            <option value="0">Typical Angina</option>
+            <option value="1">Atypical Angina</option>
+            <option value="2">Non-anginal Pain</option>
+            <option value="3">Asymptomatic</option>
+        </select><br><br>
+        Resting Blood Pressure: <input type="number" name="trestbps" step="1" required><br><br>
+        Cholesterol: <input type="number" name="chol" step="1" required><br><br>
+        Fasting Blood Sugar &gt; 120 mg/dl:
+        <select name="fbs">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select><br><br>
+        Resting ECG Results:
+        <select name="restecg">
+            <option value="0">Normal</option>
+            <option value="1">Having ST-T wave abnormality</option>
+            <option value="2">Showing probable/definite left ventricular hypertrophy</option>
+        </select><br><br>
+        Max Heart Rate Achieved: <input type="number" name="thalach" step="1" required><br><br>
+        Exercise-Induced Angina:
+        <select name="exang">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select><br><br>
+        ST Depression (oldpeak): <input type="number" name="oldpeak" step="0.1" required><br><br>
+        Slope of Peak Exercise ST Segment:
+        <select name="slope">
+            <option value="0">Upsloping</option>
+            <option value="1">Flat</option>
+            <option value="2">Downsloping</option>
+        </select><br><br>
+        Number of Major Vessels (0-3): <input type="number" name="ca" step="1" min="0" max="3" required><br><br>
+        Thalassemia:
+        <select name="thal">
+            <option value="1">Normal</option>
+            <option value="2">Fixed Defect</option>
+            <option value="3">Reversible Defect</option>
+        </select><br><br>
+
+        <button type="submit">Predict</button>
+    </form>
+</body>
+</html>
