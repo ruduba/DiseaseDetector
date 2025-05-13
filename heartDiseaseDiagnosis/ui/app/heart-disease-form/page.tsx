@@ -52,7 +52,7 @@ export default function HeartDiseaseForm() {
     }
 
     try {
-      const response = await fetch("https://diseasedetector-3l6k.onrender.com/predict", {
+      const response = await fetch("https://diseasedetector-3l6k.onrender.com/predict-heart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
