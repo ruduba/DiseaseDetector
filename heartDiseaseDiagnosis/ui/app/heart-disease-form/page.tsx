@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -28,13 +27,46 @@ export default function HeartDiseaseForm() {
     setFormData({ ...formData, [field]: value })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // In a real app, you would process this data and calculate the risk
-    // For demo purposes, we'll just navigate to the results page with a random risk
-    const isAtRisk = Math.random() > 0.5
-    const confidence = Math.floor(Math.random() * 30) + 70 // Random confidence between 70-99%
-    router.push(`/prediction-result?risk=${isAtRisk ? "yes" : "no"}&confidence=${confidence}`)
+
+    const payload = {
+      age: Number(formData.age),
+      sex: formData.sex === "male" ? 1 : 0,
+      cp: {
+        typical: 0,
+        atypical: 1,
+        nonanginal: 2,
+        asymptomatic: 3
+      }[formData.chestPainType],
+      trestbps: Number(formData.restingBP),
+      chol: Number(formData.cholesterol),
+      fbs: formData.fastingBS === "yes" ? 1 : 0,
+      restecg: 1,
+      thalach: Number(formData.maxHR),
+      exang: 0,
+      oldpeak: 1.0,
+      slope: 2,
+      ca: 0,
+      thal: 2
+    }
+
+    try {
+      const response = await fetch("https://diseasedetector-3l6k.onrender.com/predict", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      })
+
+      const result = await response.json()
+
+      router.push(`/prediction-result?risk=${result.result}&confidence=${result.confidence}`)
+    } catch (err) {
+      console.error("Prediction failed:", err)
+      alert("Prediction failed. Please try again.")
+    }
   }
 
   return (
