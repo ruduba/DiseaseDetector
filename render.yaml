@@ -1,6 +1,6 @@
 services:
   - type: web
     name: disease-detector-api
-    env: python
+    runtime: python
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn main:app --bind 0.0.0.0:$PORT
