@@ -1,14 +1,18 @@
-from flask import Flask
-from flask_cors import CORS
-from routes.predict_heart import heart_bp
-from routes.predict_diabetes import diabetes_bp  # ✅ Import diabetes blueprint
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
-CORS(app)
 
-# Register routes
-app.register_blueprint(heart_bp)
-app.register_blueprint(diabetes_bp)  # ✅ Register here
+@app.route('/predict-heart', methods=['GET', 'POST'])
+def predict_heart():
+    if request.method == 'GET':
+        return "This endpoint only accepts POST requests with heart health data in JSON format."
+
+    data = request.get_json()
+    # Perform your ML prediction using `data`...
+    result = "High risk"  # example
+    confidence = 0.91  # example
+
+    return jsonify({"result": result, "confidence": confidence})
 
 if __name__ == '__main__':
     app.run(debug=True)
