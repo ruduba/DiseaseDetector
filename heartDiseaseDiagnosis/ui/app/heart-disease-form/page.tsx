@@ -57,7 +57,7 @@ export default function HeartDiseaseForm() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(formData)
       })
 
       const result = await response.json()
